@@ -1,0 +1,80 @@
+<html>
+ <head>
+  <title>Inicio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery-3.2.1.slim.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ </head>
+ <body>
+  
+<div class="row">
+	<div class="col-sm-12">
+
+		<div class="container">
+  		<div class="jumbotron">
+    			<h1>Red Social</h1> 
+    			<p>Fase 2 Proyecto: Sistemas operativos 1</p> 
+  		</div>
+  		 
+		</div>
+
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>Principal</h3>
+			<p></p>
+			<div id="principal"></div>
+
+		</div>
+		<div class="col-sm-6">
+			<h3>Usuarios</h3>
+		</div>
+	</div>
+</div>
+
+
+<script src="/socket.io.js"></script>
+<script>
+  const socket = io('http://127.0.0.1:8080/');
+//Mandar al lado del servidor la señal para pedir los valores al servidor Ubuntu(n)
+socket.emit('servidor1', "disparador");
+
+socket.on('this', function(msg){
+				listaencabezado = "<ul class=\"list-group\">";
+				listafinal = "</ul>";
+				var cosas = msg.split("=");
+				var cadena = "";
+				for (var i = 0; i < cosas.length; i++) 
+    				{
+					if(i%2 == 0)
+					{
+						cadena = cadena + "<li class=\"list-group-item list-group-item-info\">" + cosas[i]+"</li>\n";
+					}
+					else if (i%3 == 0)
+					{
+cadena = cadena + "<li class=\"list-group-item list-group-item-success\">" + cosas[i]+"</li>\n";
+					}
+					else if (i%5 == 0)
+					{
+cadena = cadena + "<li class=\"list-group-item list-group-item-warning\">" + cosas[i]+"</li>\n";
+					}
+
+    					
+				}
+				listaencabezado = listaencabezado + cadena + listafinal;
+				document.getElementById('principal').innerHTML = listaencabezado;
+			});
+
+</script>
+
+ </body>
+</html>
